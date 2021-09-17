@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Make paystack payment here</h1>
+<h3>your order amount is N{{order.total}}</h3>
+<div class="container">
+  <div class="d-flex row justify-content-center align-items-center py-md-5 py-3">
+    <div class="col-12">
+      <script src="https://js.paystack.co/v1/inline.js"></script>
+      <button type="submit" onclick="payWithPaystack()">PAYSTACK PAY</button>
+      <!--button class="btn btn-info">PAY WITH PAYSTACK</button-->
+    </div>
+  </div>
+</div>
+
+<script>
+  function payWithPaystack() {
+    let obj = {
+      key: 'pk_test_464c52b85bc806e8ea083c5074f4429799396caf', // Replace with your public key
+      email: '{{order.email}}',
+      amount: '{{order.total}}',
+      currency: 'NGN',
+      ref: '{{order.ref}}',
+      ref: ref,
+      //ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+      // label: "Optional string that replaces customer email"
+      onClose: function(){
+        alert('Window closed.');
+      },
+      callback: function(response){
+        let message = 'Payment complete! Reference: ' + response.ref;
+        window.location.href = '{% url "pinmall:verify-payment" order.ref %}';
+        alert(message);
+      }
+    };
+    var handler = PaystackPop.setup(obj);
+    handler.openIframe();
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} cart {% endblock %}
+
+{% block content %}
+<header class="row tm-welcome-section">
+    <h2 class="col-12 text-center tm-section-title">Welcome to Simple House</h2>
+    <p class="col-12 text-center">Total 3 HTML pages are included in this template. Header image has a parallax effect. You can feel free to download, edit and use this TemplateMo layout for your commercial or non-commercial websites.</p>
+</header>
+
+    <div class="tm-paging-links">
+    <nav>
+        <ul>
+            <li class="tm-paging-item"><a href="#" class="tm-paging-link active">Pizza</a></li>
+            <li class="tm-paging-item"><a href="#" class="tm-paging-link">Salad</a></li>
+            <li class="tm-paging-item"><a href="#" class="tm-paging-link">Noodle</a></li>
+        </ul>
+    </nav>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h4>Items in the cart</h4><hr>
+                <table class="table">
+                    <!--thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>product</th>
+                            <th>Quantity</th>
+                            <th>Subtotal</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead-->
+                    <tbody>
+                        {% for cp in cart.cartproduct_set.all %}
+                        <p>Item : {{cp.item}}</p>
+                        <p>Price : {{cp.rate}}</p>
+                        <p>Quantity : {{cp.quantity}}
+                        <p>Subtotal : {{cp.subtotal}}</p>
+                    </tbody>
+                    <hr>
+                    <button><a href="{% url 'pinmall:manage-cart' cp.id %}?action=inc" class="btn btn-primary"> + </a></button>
+                    <button><a href="{% url 'pinmall:manage-cart' cp.id %}?action=dcr" class="btn btn-warning"> - </a></button>
+                    <button><a href="{% url 'pinmall:manage-cart' cp.id %}?action=rmv" class="btn btn-danger"> x </a></button>
+                </table>
+                {% endfor %}
+                <p>
+                <th>Total : </th>
+                <th>N{{cart.total}}</th>
+                <button><a href="{% url 'pinmall:checkout' %}">checkout</a></button>
+            </p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

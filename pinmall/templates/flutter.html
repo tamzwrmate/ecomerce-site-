@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Make paystack payment here</h1>
+<h3>your order amount is N{{order.total}}</h3>
+<div class="container">
+    <div class="d-flex row justify-content-center align-items-center py-md-5 py-3">
+      <div class="col-12">
+        <form>
+            <script src="https://checkout.flutterwave.com/v3.js"></script>
+            <button type="button" onClick="makePayment()">Pay Now</button>
+        </form>
+        <!--button class="btn btn-info">PAY WITH PAYSTACK</button-->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function makePayment() {
+      FlutterwaveCheckout({
+        public_key: "FLWPUBK_TEST-93008b13a2b9aeff8407243f6d7c3178-X",
+        tx_ref: "{{order.ref}}",
+        amount: "{{order.total}}",
+        currency: "NGN",
+        country: "NG",
+        payment_options: "card",
+        redirect_url: // specified redirect URL
+                    "{% url 'pinmall:verify-payment' %}",
+        customer: {
+          email: "{{order.email}}",
+          phone_number: "{{order.mobile}}",
+          name: "{{order.oredered_by}}",
+        },
+        callback: function (data) {
+        console.log(data);
+        },
+        customizations: {
+          title: "Sucex pinmall",
+          description: "Payment for items in cart",
+          logo: "https://assets.piedpiper.com/logo.png",
+        },
+      });
+    }
+  </script>
+{% endblock %}

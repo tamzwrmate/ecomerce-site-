@@ -1,0 +1,33 @@
+<!--form id="submit-form">
+    <script src="https://qa.interswitchng.com/collections/public/javascripts/inline-checkout.js"></script>
+    <button type="submit">Pay</button>
+ </form>
+ 
+ <script>
+  var submitForm = document.getElementById("submit-form");
+      submitForm.addEventListener("submit", submitHandler);
+ 
+       function submitHandler(event) {
+         var paymentRequest = {
+           merchant_code: merchantCode,
+           pay_item_id: itemId,
+           txn_ref: transRef,
+           amount: amount,
+           currency: 566,
+           site_redirect_url: redirectUrl,
+           onComplete: paymentCallback,
+           mode: mode
+         };
+ 
+         if (customerName != "") {
+           paymentRequest.cust_name = customerName;}
+ 
+         if (customerId != "") {
+           paymentRequest.cust_id = customerId;}
+ 
+         window.webpayCheckout(paymentRequest);}
+ 
+       function paymentCallback(response) {
+         console.log(response);
+       }
+ </script--> 
