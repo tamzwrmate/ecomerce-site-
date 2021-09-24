@@ -29,7 +29,6 @@ class AboutView(generic.TemplateView):
 class ContactView(generic.TemplateView):
     template_name = "contact.html"
 
-
 class ItemDetailView(generic.DetailView):
     model = Item
     template_name = "card_detail.html"
@@ -87,38 +86,6 @@ class AddToCartView(generic.TemplateView):
         context['cart'] = cart
         return context
 
-class CheckoutView(generic.CreateView):
-    form_class = CheckoutForm
-    success_url = reverse_lazy('pinmall:card')
-    template_name = 'checkout.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(CheckoutView, self).get_context_data(**kwargs)
-        cart_id = self.request.session.get('cart_id', None)
-        if cart_id:
-            cart_obj = Cart.objects.get(id=cart_id)
-        else:
-            cart_id = None
-        context['cart'] = cart_obj
-        return context
-    
-    def form_valid(self, form):
-        cart_id = self.request.session.get('cart_id')
-        if cart_id:
-            cart_obj = Cart.objects.get(id=cart_id)
-            form.instance.cart = cart_obj
-            form.instance.subtotal = cart_obj.total
-            form.instance.total = cart_obj.total
-            del self.request.session['cart_id']
-            pm = form.cleaned_data.get("payment_method")
-            order = form.save()
-            if pm == 'Interswitch':
-                return redirect(reverse('pinmall:interswitch') + '?o_id=' + str(order.id))
-        else:
-            return redirect('pinmall:home')
-        return super().form_valid(form)
-
-
 class ManageCartView(generic.View):
 
     def get(self, request, *args, **kwargs):
@@ -140,13 +107,36 @@ class ManageCartView(generic.View):
             cart_obj.save()
             if cp_obj.quantity == 0:
                 cp_obj.delete()
+                return redirect('pinmall:card')
         elif action == 'rmv':
             cart_obj.total -= cp_obj.subtotal
             cart_obj.save()
             cp_obj.delete()
+            return redirect('pinmall:card')
         else:
             pass
         return redirect('pinmall:cart')
+
+class CheckoutView(generic.CreateView):
+    form_class = CheckoutForm
+    success_url = reverse_lazy('pinmall:card')
+    template_name = 'checkout.html'
+    
+    def form_valid(self, form):
+        cart_id = self.request.session.get('cart_id')
+        if cart_id:
+            cart_obj = Cart.objects.get(id=cart_id)
+            form.instance.cart = cart_obj
+            form.instance.subtotal = cart_obj.total
+            form.instance.total = cart_obj.total
+            del self.request.session['cart_id']
+            pm = form.cleaned_data.get("payment_method")
+            order = form.save()
+            if pm == 'Interswitch':
+                return redirect(reverse('pinmall:interswitch') + '?o_id=' + str(order.id))
+        else:
+            return redirect('pinmall:card')
+        return super().form_valid(form)
 
 class Interswitch(generic.View):
     model = Order
@@ -171,7 +161,7 @@ class Interswitch(generic.View):
             context["redirect_page"] = reverse_lazy("pinmall:verify-payment")
         else:
             pass
-        return render(request, 'flutter.html', context)
+        return render(request, 'checkout.html', context)
 
 class VerifyPayment(generic.View):
     def get(self, request, *args, **kwargs):
@@ -185,3 +175,6 @@ class VerifyPayment(generic.View):
             "trans_id": trans_id
         }
         return JsonResponse(data)
+
+class LoginView(generic.TemplateView):
+    template_name = 'accounts/login.html'

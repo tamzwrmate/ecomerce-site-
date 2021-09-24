@@ -1,56 +1,107 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} cart {% endblock %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-<header class="row tm-welcome-section">
-    <h2 class="col-12 text-center tm-section-title">Welcome to Simple House</h2>
-    <p class="col-12 text-center">Total 3 HTML pages are included in this template. Header image has a parallax effect. You can feel free to download, edit and use this TemplateMo layout for your commercial or non-commercial websites.</p>
-</header>
-
-    <div class="tm-paging-links">
-    <nav>
-        <ul>
-            <li class="tm-paging-item"><a href="#" class="tm-paging-link active">Pizza</a></li>
-            <li class="tm-paging-item"><a href="#" class="tm-paging-link">Salad</a></li>
-            <li class="tm-paging-item"><a href="#" class="tm-paging-link">Noodle</a></li>
-        </ul>
-    </nav>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <h4>Items in the cart</h4><hr>
-                <table class="table">
-                    <!--thead>
-                        <tr>
-                            <th>SN</th>
-                            <th>product</th>
-                            <th>Quantity</th>
-                            <th>Subtotal</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead-->
-                    <tbody>
-                        {% for cp in cart.cartproduct_set.all %}
-                        <p>Item : {{cp.item}}</p>
-                        <p>Price : {{cp.rate}}</p>
-                        <p>Quantity : {{cp.quantity}}
-                        <p>Subtotal : {{cp.subtotal}}</p>
-                    </tbody>
-                    <hr>
-                    <button><a href="{% url 'pinmall:manage-cart' cp.id %}?action=inc" class="btn btn-primary"> + </a></button>
-                    <button><a href="{% url 'pinmall:manage-cart' cp.id %}?action=dcr" class="btn btn-warning"> - </a></button>
-                    <button><a href="{% url 'pinmall:manage-cart' cp.id %}?action=rmv" class="btn btn-danger"> x </a></button>
-                </table>
-                {% endfor %}
-                <p>
-                <th>Total : </th>
-                <th>N{{cart.total}}</th>
-                <button><a href="{% url 'pinmall:checkout' %}">checkout</a></button>
-            </p>
-            </div>
+<br>
+<br>
+<br><br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Items in the cart</h4><hr>
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th>product</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                  {% for cp in cart.cartproduct_set.all %}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{cp.item}}</td>
+                    <td>{{cp.rate}}</td>
+                    <td>{{cp.quantity}}</td>
+                    <td>{{cp.subtotal}}</td>
+                    <td>
+                      <a href="{% url 'pinmall:manage-cart' cp.id %}?action=inc" class="btn btn-primary"> + </a>
+                      <a href="{% url 'pinmall:manage-cart' cp.id %}?action=dcr" class="btn btn-warning"> - </a>
+                      <a href="{% url 'pinmall:manage-cart' cp.id %}?action=rmv" class="btn btn-danger"> x </a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  <tr>
+                    <th>Total : </th>
+                    <th><strike>N</strike> {{cart.total}}</th>
+                </tr>
+              </tbody>
+              </table>
+              <section>
+                <a href="{% url 'pinmall:checkout' %}" class="btn btn-secondary btn-md my-0 p">place order</a>
+              </section>
         </div>
+
+        <hr>
+        <hr>
+
+  <!--tr>    
+    <div>  
+          <form action="" method="POST">
+              {% csrf_token %}
+              {{form|crispy}}
+              <button class="btn btn-info">Make payment</button>
+          </form>
+          
     </div>
+  </tr> 
+</div>
+</div>
+    <br>
+<div class="container">
+        <div class="d-flex row justify-content-center align-items-center py-md-5 py-3">
+          <div class="col-12">
+            <form>
+                <script src="https://checkout.flutterwave.com/v3.js"></script>
+                <button type="button" onClick="makePayment()">Pay Now</button>
+            </form>
+            <button class="btn btn-info">PAY WITH PAYSTACK</button>
+          </div>
+        
+</div>
+    
+<script>
+        function makePayment() {
+          FlutterwaveCheckout({
+            public_key: "FLWPUBK_TEST-93008b13a2b9aeff8407243f6d7c3178-X",
+            tx_ref: "{{order.ref}}",
+            amount: "{{order.total}}",
+            currency: "NGN",
+            country: "NG",
+            payment_options: "card",
+            redirect_url: // specified redirect URL
+                        "{% url 'pinmall:verify-payment' %}",
+            customer: {
+              email: "{{order.email}}",
+              phone_number: "{{order.mobile}}",
+              name: "{{order.oredered_by}}",
+            },
+            callback: function (data) {
+            console.log(data);
+            },
+            customizations: {
+              title: "Sucex pinmall",
+              description: "Payment for items in cart",
+              logo: "https://assets.piedpiper.com/logo.png",
+            },
+          });
+        }
+</script-->
 
 {% endblock %}

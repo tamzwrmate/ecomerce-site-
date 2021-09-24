@@ -1,173 +1,140 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
 {% load static %}
+  <head>
 
-{% block content %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
 
-<main>
-    <header class="row tm-welcome-section">
-        <!--h2 class="col-12 text-center tm-section-title">Welcome to Simple House</h2-->
-        <!--p class="col-12 text-center">Total 3 HTML pages are included in this template. Header image has a parallax effect. You can feel free to download, edit and use this TemplateMo layout for your commercial or non-commercial websites.</p-->
-    </header>
+    <title>Pixie - Ecommerce HTML5 Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/tooplate-main.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/flex-slider.css' %}">
+
+  </head>
+<!--
+Tooplate 2114 Pixie
+https://www.tooplate.com/view/2114-pixie
+-->
+<body>
     
+  <!-- Pre Header -->
+  <div id="pre-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <span>Welcome to Sucex De-Tech Integrated Services</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <!-- Gallery -->
-    <div class="row tm-gallery">
-        <!-- gallery page 1 -->
-        
-        <!--Main layout-->
-          <main class="mt-5 pt-4">
-            <div class="container dark-grey-text mt-5">
-        
-              <!--Grid row-->
-              <div class="row wow fadeIn">
-        
-                <!--Grid column-->
-                <div class="col-md-6 mb-4">
-        
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <a class="navbar-brand" href="#"><img src="{% static 'assets/images/header-logo.png' %}" alt=""></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home
+              <!--span class="sr-only">(current)</span-->
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="products.html">Past Questions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'pinmall:cart' %}">Cart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'pinmall:about' %}">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'pinmall:contact' %}">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <!-- Banner Starts Here -->
+  <div class="single-product">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="section-heading">
+            <div class="line-dec"></div>
+            <h1>Single Product</h1>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="product-slider">
+            <div id="slider" class="flexslider">
+              <ul class="slides">
                   <img src="{{ object.image.url }}" class="img-fluid" alt="">
-        
-                </div>
-                <!--Grid column-->
-        
-                <!--Grid column-->
-                <div class="col-md-6 mb-4">
-        
-                  <!--Content-->
-                  <div class="p-4">
-        
-                    <div class="mb-3">
-                      <a href="">
-                        <span class="badge purple mr-1">{{ object.get_category_display }}</span>
-                      </a>
-                      <a href="">
-                        <span class="badge blue mr-1">{{ object.get_label_display }}</span>
-                      </a>
-                    </div>
-        
-                    <p class="lead">
-        
-                    {% if object.discount_price %}
-                      <span class="mr-1">
-                      <del>N{{ items.price }}</del>
-                      </span>
-                      <span>${{ object.discount_price }}</span>
-                    {% else %}
-                     <span>N{{ object.price }}</span>
-                    {% endif %}
-        
-                    </p>
-        
-                    <p class="lead font-weight-bold">{{ object.name }}</p>
-        
-                    <p>{{ object.description }}</p>
-
-                    
-        
-                    {% comment %} <form class="d-flex justify-content-left">
-                      <!-- Default input -->
-                      <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
-                      <button class="btn btn-primary btn-md my-0 p" type="submit">Add to cart
-                        <i class="fas fa-shopping-cart ml-1"></i>
-                      </button>
-        
-                    </form> {% endcomment %}
-
-
-                    <!--div class="cart-plus-minus" id="quantity-wanted-p">
-                        <span style="color:#fff; background-color: #3366cc;" class="dec qtybutton" onclick="totalPriceDown()">-</span>
-                        <input type="text" name="quantity" size="5" id="quantity" value="1" onchange="totalPrice()">
-                        <span style="color:#fff; background-color: #3366cc;" class="inc qtybutton" onclick="totalPriceUp()">+</span>
-                 </div-->
-                      
-                      <button><a href="{% url 'pinmall:detail' item.slug %}" class="btn btn-primary btn-md my-0 p" type="submit">Add to cart
-                        <i class="fas fa-shopping-cart ml-1"></i>
-                      </button>
-
-                      <button><a href="{% url 'pinmall:cart' %}" class="btn btn-primary btn-md my-0 p" type="submit">go to cart
-                        <i class="fas fa-shopping-cart ml-1"></i>
-                      </button>
-        
-                    {{ object.get_quantity_in_chart }}
-                    <a href="{{ object.get_remove_from_cart_url }}" class="btn btn-danger btn-md my-0 p" >Remove From cart
-                        <i class="fas fa-trash ml-1"></i>
-                    </a>
-
-
-                   
-        
-                  </div>
-                  <!--Content>
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>Subtotal</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                  </table-->
-        
-                </div>
-                <!--Grid column-->
-        
-              </div>
-              <!--Grid row-->
-
-        
-              <hr>
-        
-              <!--Grid row-->
-              <div class="row d-flex justify-content-center wow fadeIn">
-        
-                <!--Grid column-->
-                <div class="col-md-6 text-center">
-        
-                  <h4 class="my-4 h4">Additional information</h4>
-        
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus suscipit modi sapiente illo soluta odit
-                    voluptates,
-                    quibusdam officia. Neque quibusdam quas a quis porro? Molestias illo neque eum in laborum.</p>
-        
-                </div>
-                <!--Grid column-->
-        
-              </div>
-              <!--Grid row-->
-        
-              <!--Grid row-->
-              <div class="row wow fadeIn">
-        
-                <!--Grid column-->
-                <div class="col-lg-4 col-md-12 mb-4">
-        
-                  <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg" class="img-fluid" alt="">
-        
-                </div>
-                <!--Grid column-->
-        
-                <!--Grid column-->
-                <div class="col-lg-4 col-md-6 mb-4">
-        
-                  <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg" class="img-fluid" alt="">
-        
-                </div>
-                <!--Grid column-->
-        
-                <!--Grid column-->
-                <div class="col-lg-4 col-md-6 mb-4">
-        
-                  <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg" class="img-fluid" alt="">
-        
-                </div>
-                <!--Grid column-->
-        
-              </div>
-              <!--Grid row-->
-        
+                <!-- items mirrored twice, total of 12 -->
+              </ul>
             </div>
-          </main>
-          
+            <div id="carousel" class="flexslider">
+              <ul class="slides">
+                <li>
+                  <img src="{% static 'assets/images/thumb-01.jpg' %}" />
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="right-content">
+            <h4>{{ object.name }}</h4>
+            {% if object.discount_price %}
+            <del>N{{ items.price }}</del>
+            </span>
+            <span>${{ object.discount_price }}</span>
+            {% else %}
+            <h6>N{{ object.price }}</h6>
+            {% endif %}
+            
+            <p>{{ object.description }}</p>
+            <span>{{ object.get_label_display }}</span>
+            <section>
+            <a href="{% url 'pinmall:detail' item.slug %}" class="btn btn-secondary btn-md my-0 p" >Add To Cart</a>
+            <a href="{% url 'pinmall:cart' %}" class="btn btn-primary btn-md my-0 p">Go To Cart</a>
+            <!--a href="" class="btn btn-secondary btn-md my-0 p" type="submit">Go to cart</a-->
+            
+            </section>
+            <!--form action="" method="get">
+              <label for="quantity">Quantity:</label>
+              <input name="quantity" type="quantity" class="quantity-text" id="quantity" 
+                onfocus="if(this.value == '1') { this.value = ''; }" 
+                  onBlur="if(this.value == '') { this.value = '1';}"
+                  value="1">
+            </form-->
+            <div class="down-content">
+              <div class="categories">
+                <h6>Category: <span><a href="">{{ object.get_category_display }}</a>
+              </div>
+              <div class="share">
+                <h6>Share: <span><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-twitter"></i></a></span></h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-
-          <!--Main layout-->        
-        
-{% endblock content %}

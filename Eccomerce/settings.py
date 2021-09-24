@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'pinmall.apps.PinmallConfig',
 
     'django.contrib.sites',
+    'crispy_forms',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -49,6 +50,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
 
 SITE_ID = 1
 
@@ -96,9 +99,17 @@ WSGI_APPLICATION = 'Eccomerce.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
+   # 'default': {
+    #    'ENGINE': 'django.db.backends.sqlite3',
+    #    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+   # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'Sucex Ecomerce',
+        'USER': 'postgres',
+        'PASSWORD': 'jokerslimP1.00',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 

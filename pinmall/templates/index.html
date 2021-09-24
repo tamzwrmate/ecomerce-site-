@@ -2,42 +2,44 @@
 {% load static %}
 
 {% block content %}
-<body> 
-	<!-- Page Content -->
-    <!-- Banner Starts Here -->
-    <div class="banner">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="caption">
-              <h2>Ecommerce HTML Template</h2>
-              <div class="line-dec"></div>
-              <p>Pixie HTML Template can be converted into your desired CMS theme. Total <strong>5 pages</strong> included. You can use this Bootstrap v4.1.3 layout for any CMS. 
-              <br><br>Please tell your friends about <a rel="nofollow" href="https://www.facebook.com/tooplate/">Tooplate</a> free template site. Thank you. Photo credit goes to <a rel="nofollow" href="https://www.pexels.com">Pexels website</a>.</p>
-              <div class="main-button">
-                <a href="#">Order Now!</a>
-              </div>
-            </div>
+
+<div class="banner">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="caption">
+          <h2>Past Questions CBT</h2>
+          <div class="line-dec"></div>
+          <p>Our World Standard CBT test will get you prepared for your post utme exams. With more than <strong>100 hundred</strong> questions, for every subject and all Faculties. 
+          <br><br>Simply register below <a rel="nofollow" href="https://www.facebook.com/tooplate/"></a> at an affordable rate. And get stared !<a rel="nofollow" href="https://www.pexels.com"></a>.</p>
+          <div class="main-button">
+            <a href="#">Register Now!</a>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+
     <!-- Banner Ends Here -->
 
 	<!-- Featured Starts Here -->
     <div class="featured-items">
-		{% for item in item_list %}
       <div class="container">
         <div class="row">
-          <div class="col-md-7">
+          <div class="col-md-12">
             <div class="section-heading">
-              <h1>Featured Items</h1>
+              <div class="line-dec"></div>
+              <h1>Featured items</h1>
             </div>
           </div>
-          <div class="col-md-6 p-4">
-            <div class="owl-carousel owl-theme" >
-              <a href="{{ item.get_absolute_url }}">
-                <img src="{{ item.get_image_url }}" alt="Item 5">
+          <div class="col-md-12">
+            <div class="owl-carousel owl-theme">
+              {% for item in item_list %}
+                <div class="featured-item">
+                  <a href="{% url 'pinmall:item-detail' item.pk %}">
+                  <img src="{{ item.get_image_url }}" alt="Item 5"></a>
                 <h4><a href="{% url 'pinmall:item-detail' item.pk %}" class="dark-grey-text">{{ item.name }}</a></h4>
                 <h6>
 					        <strong>N
@@ -48,13 +50,12 @@
 						      {% endif %}
 					        </strong>
 				        </h6>
-				        <button><a href="{% url 'pinmall:detail' item.slug %}" class="btn btn-primary">Add to Cart</a></button>
+				        <a href="{% url 'pinmall:detail' item.slug %}" class="btn btn-primary btn-md my-0 p" >Buy</a>
                 </div>
-              </a>
+                {% endfor %}
             </div>
           </div>
         </div>
-		{% endfor %}
 	</div>
   </div>
   <!-- Featred Ends Here -->

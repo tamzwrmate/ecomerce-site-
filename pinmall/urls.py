@@ -15,4 +15,6 @@ urlpatterns = [
     path('checkout/', CheckoutView.as_view(), name='checkout'),
     path('interswitch/', Interswitch.as_view(), name='interswitch'),
     path('verify-payment/', VerifyPayment.as_view(), name='verify-payment'),
+
+    path('login/', LoginView.as_view(), name='account_login'),
 ]
