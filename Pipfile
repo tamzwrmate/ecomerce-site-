@@ -9,6 +9,7 @@ django-allauth = "*"
 psycopg2 = "*"
 pillow = "*"
 whitenoise = "*"
+gunicorn = "*"
 
 [dev-packages]
 
