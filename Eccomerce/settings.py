@@ -26,12 +26,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
-    # Local_app
+    # local app
     'pinmall.apps.PinmallConfig',
 
-    # 3rd party
-    'django.contrib.sites',
+    # 3rd Party apps
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
