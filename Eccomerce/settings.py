@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'pinmall.apps.PinmallConfig',
 
     # 3rd Party apps
+    'crispy_forms',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
