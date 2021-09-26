@@ -1,8 +1,5 @@
-from pathlib import Path
 import os
-import django_heroku
-import dj_database_url
-from decouple import config
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -17,7 +14,7 @@ SECRET_KEY = 's^z5r&b2vtam2en_s6x0aul6k+yr6jz@(wj2d8)=d(23r=bc0_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -29,14 +26,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Local_app
     'pinmall.apps.PinmallConfig',
 
+    # 3rd party
     'django.contrib.sites',
-    'crispy_forms',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-
     'allauth.socialaccount.providers.google',
 ]
 
@@ -159,5 +157,3 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-django_heroku.settings(locals())
